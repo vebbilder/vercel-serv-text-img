@@ -67,7 +67,7 @@ router.get("/", async(req, res) => {
                     await browser.close();
 
                 } catch (err) {
-
+                    res.send("Возникла ошибка, попробуйте ещё раз!");
                     console.log("Возникла ошибка, попробуйте ещё раз!");
 
                 }
