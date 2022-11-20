@@ -1,14 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const puppeteer = require('puppeteer-extra');
-/**
- * GET product list.
- *
- * @return product list | empty.
- */
+var bodyParser = require('body-parser');
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
+
+router.post("/", urlencodedParser, function(req, res) {
+    if (!req.body) return res.sendStatus(400);
+    res.send(`${req.body.name} - ${req.body.age}`);
+});
+
 router.get("/", async(req, res) => {
     try {
-        if (req.query.text) {
+        if (req.query.img) {
 
             (async function() {
                 const massPromt = [
@@ -60,6 +63,7 @@ router.get("/", async(req, res) => {
                     const imgSrc = await page.$eval('#run > div > div > div > div:nth-child(2) > div > div:nth-child(2) > div > div > div > div > a > img', (el) => el.getAttribute('src'));
 
                     res.send(imgSrc);
+                    console.log(req.hostname);
                     // res.json({
                     //     message: imgSrc,
                     // });
@@ -67,7 +71,7 @@ router.get("/", async(req, res) => {
                     await browser.close();
 
                 } catch (err) {
-                    res.send("Возникла ошибка, попробуйте ещё раз!");
+
                     console.log("Возникла ошибка, попробуйте ещё раз!");
 
                 }
