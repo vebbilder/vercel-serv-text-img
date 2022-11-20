@@ -72,7 +72,7 @@ app.get('/', function(req, res) {
         })();
 
     } else {
-        res.send('пусто накуй');
+        res.send('пусто накуй!');
     }
 });
 
